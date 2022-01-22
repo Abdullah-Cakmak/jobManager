@@ -52,14 +52,14 @@ export default function Footer() {
             <GitHubIcon className={classes.icon} fontSize="large" />
           </Grid>
           <Grid item>
-            <Link
-              href="#"
+            <a
+              href="https://github.com/Abdullah-Cakmak/jobManager"
               underline="always"
               className={classes.link}
               color="#424242"
             >
               {"repository"}
-            </Link>
+            </a>
           </Grid>
         </Grid>
         <Grid container item xs={6}>

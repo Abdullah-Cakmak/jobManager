@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 import jobsPriority from "../../../enums/JobsPriority";
 import { useState, useEffect } from "react";
 import { Typography } from "@mui/material";
+import CreateIcon from "@mui/icons-material/Add";
 
 export default function AddNewJob(props) {
   const { onAddJob } = props;
@@ -71,6 +72,8 @@ export default function AddNewJob(props) {
           size="large"
           fullWidth
           disabled={!jobName || !jobPriority}
+          style={{ height: 53 }}
+          startIcon={<CreateIcon />}
           onClick={() => {
             console.log("On add job");
             onAddJob({

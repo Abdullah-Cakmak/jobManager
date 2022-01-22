@@ -13,7 +13,6 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import JobsPriority from "../../../enums/JobsPriority";
-// import SearchIcon from "@mui/icons-material/Search";
 
 const getJobPriorityColor = (job) => {
   switch (job.priority) {

@@ -22,7 +22,6 @@ const useStyles = makeStyles((theme) => ({
     // marginLeft: theme.spacing(-1),
     // marginRight: theme.spacing(-1),
     display: "flex",
-    minHeight: "calc(100vh)",
     padding: theme.spacing(2, 4, 2, 4),
   },
 }));
@@ -72,7 +71,7 @@ export default function App() {
           container
           justifyContent="center"
           alignItems="center"
-          alignContent="center"
+          alignContent="flex-start"
           spacing={2}
         >
           <Grid item xs={12}>
