@@ -8,11 +8,10 @@ import Footer from "./components/Footer";
 import { Fragment } from "react";
 import { STORE_KEY_JOB_LIST } from "./constants";
 import { v4 as uuidv4 } from "uuid";
-import JobsPriority from "./enums/JobsPriority";
 
 const useStyles = makeStyles((theme) => ({
   content: {
-    marginTop: 140,
+    marginTop: 170,
     marginBottom: 50,
     flexGrow: 1,
     transition: theme.transitions.create("margin", {
@@ -22,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     // marginLeft: theme.spacing(-1),
     // marginRight: theme.spacing(-1),
     display: "flex",
-    padding: theme.spacing(2, 4, 2, 4),
+    padding: theme.spacing(2, 6, 2, 6),
   },
 }));
 
@@ -58,10 +57,6 @@ export default function App() {
     setJobList([...jobList]);
     window.localStorage.setItem(STORE_KEY_JOB_LIST, JSON.stringify(jobList));
   });
-
-  useEffect(() => {
-    console.log(jobList);
-  }, [jobList]);
 
   return (
     <Fragment>

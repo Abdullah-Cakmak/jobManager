@@ -2,7 +2,7 @@ import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import MenuItem from "@mui/material/MenuItem";
 import jobsPriority from "../../../enums/JobsPriority";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { Typography } from "@mui/material";
 import EditDialog from "./EditDialog";
 import DeleteDialog from "./DeleteDialog";
@@ -13,6 +13,7 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import JobsPriority from "../../../enums/JobsPriority";
+import Box from "@mui/material/Box";
 
 const getJobPriorityColor = (job) => {
   switch (job.priority) {
@@ -96,109 +97,161 @@ export default function JobList(props) {
       alignContent="center"
       justifyContent="center"
       spacing={2}
-      // style={{ minHeight: "calc(65vh)" }}
     >
-      <Grid item container direction="row">
+      <Grid item container direction="row" alignItems="flex-end">
         <Grid item container xs={6} justifyContent="flex-start">
           <Typography variant="h6">Job List</Typography>
         </Grid>
         <Grid item container xs={6} justifyContent="flex-end">
           <Typography variant="body2">
-            {filteredJobList.length + "/" + jobList.length}
+            {"(" + filteredJobList.length + "/" + jobList.length + ")"}
           </Typography>
         </Grid>
       </Grid>
-      <Grid item container direction="row" spacing={2}>
-        <Grid item container xs={7} justifyContent="flex-start">
-          <TextField
-            fullWidth
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-            }}
-            value={search}
-            label={"Job Name"}
-            placeholder={"Job Name"}
-            onChange={(event) =>
-              setSearch(event.target.value.replace(/\s/g, ""))
-            }
-          />
-        </Grid>
-        <Grid item container xs={5} justifyContent="flex-end">
-          <TextField
-            select
-            label={"Jobs Priority"}
-            value={jobPriority}
-            //   disabled={generalInfoReadOnly}
-            style={{ maxHeight: 100 }}
-            onChange={(event) => {
-              setJobPriority(event.target.value);
-            }}
-            variant="outlined"
-            fullWidth
-          >
-            <MenuItem key={"ALL"} value={"ALL"}>
-              {"ALL"}
-            </MenuItem>
-            {jobPriorityOptions.map((option) => (
-              <MenuItem key={option.id} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
-        </Grid>
-      </Grid>
-      <Grid item container direction="row">
-        <Grid item container xs={8} justifyContent="flex-start">
-          <Typography variant="body1">Name</Typography>
-        </Grid>
-        <Grid item container xs={2} justifyContent="flex-start">
-          <Typography variant="body1">Priority</Typography>
-        </Grid>
-        <Grid item container xs={2} justifyContent="flex-end">
-          <Typography variant="body1">Action</Typography>
-        </Grid>
-      </Grid>
-
-      {filteredJobList.map((job) => {
-        return (
-          <Grid item key={job.id} container direction="row">
-            <Grid item container direction="row">
-              <Grid item container xs={8} justifyContent="flex-start">
-                <Typography variant="body1">{job.name}</Typography>
-              </Grid>
-              <Grid item container xs={2} justifyContent="flex-start">
-                <Chip
-                  label={job.priority}
-                  variant="filled"
-                  color={getJobPriorityColor(job)}
-                />
-              </Grid>
-              <Grid item container xs={2} justifyContent="flex-end">
-                <IconButton
-                  onClick={() => {
-                    setOpenEditDialog(true);
-                    setSelectedJob(job);
-                  }}
-                >
-                  <EditIcon />
-                </IconButton>
-                <IconButton
-                  onClick={() => {
-                    setOpenDeleteDialog(true);
-                    setSelectedJob(job);
-                  }}
-                >
-                  <DeleteIcon />
-                </IconButton>
-              </Grid>
+      <Grid item container>
+        <Box
+          sx={{
+            width: "100%",
+            display: "absolute",
+            alignItems: "center",
+            backgroundColor: "#eff3fc",
+            pl: 2,
+            pb: 1,
+            pt: 2,
+            pr: 2,
+          }}
+        >
+          <Grid item container direction="row" spacing={2}>
+            <Grid item container xs={9} justifyContent="flex-start">
+              <TextField
+                fullWidth
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon />
+                    </InputAdornment>
+                  ),
+                }}
+                value={search}
+                label={"Job Name"}
+                placeholder={"Search"}
+                onChange={(event) =>
+                  setSearch(event.target.value.replace(/\s/g, ""))
+                }
+              />
+            </Grid>
+            <Grid item container xs={3} justifyContent="flex-end">
+              <TextField
+                select
+                label={"Jobs Priority"}
+                value={jobPriority}
+                style={{ maxHeight: 100 }}
+                onChange={(event) => {
+                  setJobPriority(event.target.value);
+                }}
+                variant="outlined"
+                fullWidth
+              >
+                <MenuItem key={"ALL"} value={"ALL"}>
+                  {"ALL"}
+                </MenuItem>
+                {jobPriorityOptions.map((option) => (
+                  <MenuItem key={option.id} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
             </Grid>
           </Grid>
-        );
-      })}
+        </Box>
+        <Box
+          sx={{
+            width: "100%",
+            display: "absolute",
+            alignItems: "center",
+            backgroundColor: "#dee7f9",
+            pl: 2,
+            pb: 1,
+            pt: 1,
+            pr: 4,
+          }}
+        >
+          <Grid item container direction="row">
+            <Grid item container xs={9} justifyContent="flex-start">
+              <Typography variant="body1">Name</Typography>
+            </Grid>
+            <Grid item container xs={2} justifyContent="flex-start">
+              <Typography variant="body1">Priority</Typography>
+            </Grid>
+            <Grid item container xs={1} justifyContent="flex-end">
+              <Typography variant="body1">Action</Typography>
+            </Grid>
+          </Grid>
+        </Box>
+
+        {filteredJobList.map((job) => {
+          return (
+            <Box
+              sx={{
+                width: "100%",
+                display: "absolute",
+                alignItems: "center",
+                pl: 2,
+                pb: 1,
+                pt: 1,
+                pr: 4,
+                boxShadow: 1,
+              }}
+            >
+              <Grid item key={job.id} container direction="row">
+                <Grid
+                  item
+                  container
+                  direction="row "
+                  alignItems="center"
+                  alignContent="center"
+                  justifyContent="center"
+                >
+                  <Grid
+                    item
+                    container
+                    xs={9}
+                    justifyContent="flex-start"
+                    style={{ paddingLeft: 4 }}
+                  >
+                    <Typography variant="body1">{job.name}</Typography>
+                  </Grid>
+                  <Grid item container xs={2} justifyContent="flex-start">
+                    <Chip
+                      label={job.priority}
+                      variant="filled"
+                      color={getJobPriorityColor(job)}
+                    />
+                  </Grid>
+                  <Grid item container xs={1} justifyContent="flex-end">
+                    <IconButton
+                      onClick={() => {
+                        setOpenEditDialog(true);
+                        setSelectedJob(job);
+                      }}
+                    >
+                      <EditIcon />
+                    </IconButton>
+                    <IconButton
+                      onClick={() => {
+                        setOpenDeleteDialog(true);
+                        setSelectedJob(job);
+                      }}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Box>
+          );
+        })}
+      </Grid>
       <EditDialog
         open={openEditDialog}
         onClose={() => setOpenEditDialog(false)}

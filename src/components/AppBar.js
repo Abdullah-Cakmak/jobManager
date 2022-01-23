@@ -10,11 +10,11 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     width: "100%",
-    top: 0,
+    top: 30,
     zIndex: theme.zIndex.drawer + 2,
     height: 45,
-    paddingLeft: 30,
-    paddingRight: 30,
+    paddingLeft: 50,
+    paddingRight: 50,
     display: "block",
     position: "absolute",
   },
@@ -30,22 +30,12 @@ export default function AppBar() {
         spacing="4"
         style={{ paddingTop: 26 }}
       >
-        <Grid item container xs={12} alignItems="center">
-          <Grid item xs={1} justifyContent="flex-start">
-            <Logo />
-          </Grid>
-          {/* <Grid item xs={11} justifyContent="flex-start">
-            <Typography color="primary" variant="h5">
-              JOB MANAGER
-            </Typography>
-          </Grid> */}
+        <Grid item xs={12}>
+          <Logo />
+          <Typography variant="h6">JOB MANAGER</Typography>
         </Grid>
         <Grid item xs={12}>
-          <Divider
-            variant="fullWidth"
-            className={classes.divider}
-            style={{ paddingTop: 16 }}
-          />
+          <Divider variant="fullWidth" className={classes.divider} />
         </Grid>
       </Grid>
     </div>

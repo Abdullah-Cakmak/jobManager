@@ -39,15 +39,19 @@ export default function AddNewJob(props) {
       <Grid item xs={12}>
         <Typography variant="h6">Create New Job</Typography>
       </Grid>
-      <Grid item xs={7}>
+      <Grid item xs={9}>
         <TextField
           fullWidth
           value={jobName}
           label={"Job Name"}
-          onChange={(event) => setJobName(event.target.value)}
+          onChange={(event) =>
+            setJobName(
+              event.target.value.substr(0, 255).replace(/[\W_]+/g, " ")
+            )
+          }
         />
       </Grid>
-      <Grid item xs={3}>
+      <Grid item xs={2}>
         <TextField
           select
           label={"Jobs Priority"}
@@ -66,7 +70,7 @@ export default function AddNewJob(props) {
           ))}
         </TextField>
       </Grid>
-      <Grid item xs={2}>
+      <Grid item xs={1}>
         <Button
           variant="contained"
           size="large"
@@ -75,7 +79,6 @@ export default function AddNewJob(props) {
           style={{ height: 53 }}
           startIcon={<CreateIcon />}
           onClick={() => {
-            console.log("On add job");
             onAddJob({
               name: jobName,
               priority: jobPriority,

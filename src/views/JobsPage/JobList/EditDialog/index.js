@@ -8,13 +8,10 @@ import TextField from "@mui/material/TextField";
 import jobsPriority from "../../../../enums/JobsPriority";
 import { useState, useEffect } from "react";
 
-// Icon imports
-// import IconDelete from "@material-ui/icons/DeleteOutline";
-
 export default function EditDialog(props) {
   const { onClose, open, dialogTitle, selectedJob, onEditJob, ...rest } = props;
   const [selectedPriority, setSelectedPriority] = useState(
-    selectedJob.priority || ""
+    selectedJob.priority
   );
   const [jobPriorityOptions, setJobPriorityOptions] = useState([]);
 
@@ -30,21 +27,23 @@ export default function EditDialog(props) {
     );
   }, []);
 
-  //Edit action on submit
-  // const onSubmit = () => {
-
-  // };
-
   return (
     <Dialog
       open={open || false}
       onClose={onClose}
       {...rest}
-      maxWidth={"sm"}
+      maxWidth={"xs"}
       fullWidth
     >
-      <Grid container direction="row" spacing={2}>
-        <Grid item xs={12}>
+      <Grid
+        container
+        direction="row"
+        spacing={2}
+        alignItems="center"
+        alignContent="center"
+        justifyContent="center"
+      >
+        <Grid item container xs={8} justifyContent="center">
           <DialogTitle>{dialogTitle}</DialogTitle>
         </Grid>
         <Grid item xs={8}>
@@ -62,7 +61,7 @@ export default function EditDialog(props) {
           <TextField
             select
             label={"Jobs Priority"}
-            value={selectedPriority}
+            value={selectedPriority ? selectedPriority : selectedJob.priority}
             style={{ maxHeight: 100 }}
             onChange={(event) => {
               setSelectedPriority(event.target.value);
@@ -84,7 +83,10 @@ export default function EditDialog(props) {
           color="inherit"
           size="medium"
           fullWidth
-          onClick={onClose}
+          onClick={() => {
+            onClose();
+            setSelectedPriority(selectedJob.priority);
+          }}
         >
           CANCEL
         </Button>
@@ -95,6 +97,7 @@ export default function EditDialog(props) {
           fullWidth
           onClick={() => {
             onEditJob(selectedJob.id, selectedPriority);
+            setSelectedPriority(selectedJob.priority);
             onClose();
           }}
         >
